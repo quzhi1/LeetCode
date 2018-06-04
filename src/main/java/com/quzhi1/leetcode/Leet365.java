@@ -6,23 +6,11 @@ import java.util.Set;
 public class Leet365 {
 
     public static boolean canMeasureWater(final int x, final int y, final int z) {
-        if (x != y && x != 0 && y != 0) {
-            int c1 = x - y > 0 ? x : y;
-            int c2 = x - y > 0 ? y : x;
-            int c3 = x - y > 0 ? x - y : y - x;
-            int c1Max = z / c1;
-            int c2Max = z / c2;
-            int c3Max = z / c3;
-            for (int i = 0; i <= c1Max; i++) {
-                for (int j = 0; j <= c2Max; j++) {
-                    for (int k = 0; k <= c3Max; k++) {
-                        if (z == c1 * i + c2 * j + c3 * k) {
-                            return true;
-                        }
-                    }
-                }
-            }
+        if (z > x + y) {
             return false;
+        }
+        if (x != y && x != 0 && y != 0) {
+            return z % gcd(x, y) == 0;
         } else if (x == y && x != 0) {
             return z % x == 0;
         } else if (x == 0 && y != 0) {
@@ -32,6 +20,20 @@ public class Leet365 {
         } else { // x == y == 0
             return z == 0;
         }
+    }
+
+    public static int gcd(final int a, final int b) {
+        if (a == 0) {
+            return 0;
+        }
+        int bChange = b;
+        int aChange = a;
+        while (bChange != 0) {
+            int temp = bChange;
+            bChange = aChange % bChange;
+            aChange = temp;
+        }
+        return aChange;
     }
 
     public static boolean canMeasureWaterCorrect(int x, int y, int z) {
@@ -83,7 +85,11 @@ public class Leet365 {
         int x5 = 34;
         int y5 = 5;
         int z5 = 6;
-        System.out.println(canMeasureWaterCorrect(x5, y5, z5));
+        System.out.println(canMeasureWater(x5, y5, z5));
+        int x6 = 1;
+        int y6 = 1;
+        int z6 = 12;
+        System.out.println(canMeasureWater(x6, y6, z6));
     }
 
 }
