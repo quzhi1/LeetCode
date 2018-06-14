@@ -1,5 +1,7 @@
 package com.quzhi1.leetcode;
 
+import com.quzhi1.leetcode.util.ListNode;
+
 public class Leet2 {
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -41,25 +43,6 @@ public class Leet2 {
         b.next = new ListNode(9);
 //        b.next.next = new ListNode(4);
 
-        printList(addTwoNumbers(a, b));
-    }
-
-    private static void printList(final ListNode head) {
-        ListNode progress = head;
-        while (progress != null) {
-            System.out.print(progress.val + "->");
-            progress = progress.next;
-        }
-        System.out.println();
-    }
-
-    public static class ListNode {
-
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
+        addTwoNumbers(a, b).printList();
     }
 }
