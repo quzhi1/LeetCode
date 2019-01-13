@@ -1,5 +1,7 @@
 package com.quzhi1.leetcode;
 
+import com.quzhi1.leetcode.util.TreeNode;
+
 public class Leet100 {
 
   public static boolean isSameTree(TreeNode p, TreeNode q) {
@@ -31,17 +33,5 @@ public class Leet100 {
 
   public static void main(String[] args) {
 
-  }
-
-
-  public class TreeNode {
-
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-      val = x;
-    }
   }
 }

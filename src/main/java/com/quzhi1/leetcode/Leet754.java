@@ -1,5 +1,6 @@
 package com.quzhi1.leetcode;
 
+import com.quzhi1.leetcode.util.TreeNode;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Leet754 {
@@ -66,16 +67,5 @@ public class Leet754 {
     System.out.println(reachNumberCorrect(4));
     System.out.println(reachNumberCorrect(7));
     System.out.println(reachNumberCorrect(5));
-  }
-
-  public static class TreeNode {
-
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-      val = x;
-    }
   }
 }
