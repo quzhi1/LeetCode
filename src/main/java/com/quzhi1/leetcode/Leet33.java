@@ -10,8 +10,8 @@ public class Leet33 {
     } else if (nums.length == 1) {
       return nums[0] == target ? 0 : -1;
     }
-    int[] splitLeft = splitLeft(nums);
-    int[] splitRight = splitRight(nums);
+    int[] splitLeft = Arrays.copyOfRange(nums, 0, nums.length / 2);
+    int[] splitRight = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
     int leftResult, rightResult;
     if (isSorted(splitLeft)) {
       leftResult = searchSorted(splitLeft, target);
@@ -30,20 +30,11 @@ public class Leet33 {
   }
 
   private static int searchSorted(int[] nums, int target) {
-    if (nums.length == 0) {
+    int result = Arrays.binarySearch(nums, target);
+    if (result < 0) {
       return -1;
-    } else if (nums.length == 1) {
-      return nums[0] == target ? 0 : -1;
-    }
-    int mid = nums[nums.length / 2];
-    int[] splitLeft = splitLeft(nums);
-    int[] splitRight = splitRight(nums);
-    if (target < mid) {
-      return searchSorted(splitLeft, target);
-    } else if (target > mid) {
-      return searchSorted(splitRight, target) == -1 ? -1 : nums.length / 2 + searchSorted(splitRight, target);
     } else {
-      return nums.length / 2;
+      return result;
     }
   }
 
@@ -53,14 +44,6 @@ public class Leet33 {
     } else {
       return nums[0] < nums[nums.length - 1];
     }
-  }
-
-  private static int[] splitLeft(int[] nums) {
-    return Arrays.copyOfRange(nums, 0, nums.length / 2);
-  }
-
-  private static int[] splitRight(int[] nums) {
-    return Arrays.copyOfRange(nums, nums.length / 2, nums.length);
   }
 
   public static void main(String[] args) {
