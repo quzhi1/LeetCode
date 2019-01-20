@@ -34,7 +34,7 @@ public class Leet56 {
     }
   }
 
-  static public class Interval {
+  private static class Interval {
 
     int start;
     int end;
