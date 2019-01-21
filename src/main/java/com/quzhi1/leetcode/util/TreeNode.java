@@ -10,12 +10,23 @@ public class TreeNode {
     val = x;
   }
 
-//  public static void printTree(final TreeNode root) {
-//    if (root == null) {
-//      System.out.println("null");
-//    }
-//    List<TreeNode> currLevel = new ArrayList<>();
-//    currLevel.add(root);
-//    while (currLevel)
-//  }
+  @Override
+  public boolean equals(Object target) {
+    if (target instanceof TreeNode) {
+      TreeNode targetNode = ((TreeNode) target);
+      if (targetNode.left != null) {
+        if (!targetNode.left.equals(this.left)) {
+          return false;
+        }
+      }
+      if (targetNode.right != null) {
+        if (!targetNode.right.equals(this.right)) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
