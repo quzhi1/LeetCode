@@ -1,8 +1,18 @@
 package com.quzhi1.leetcode;
 
-import com.quzhi1.leetcode.util.Node;
 
 public class HackerHuffmanDecoding {
+
+  private static class Node {
+
+    public int frequency; // the frequency of this tree
+    public char data;
+    public Node left, right;
+
+    public Node(char data) {
+      this.data = data;
+    }
+  }
 
   static void decode(String s, Node root) {
     if (s == null || s.isEmpty() || root == null || root.left == null || root.right == null) {
