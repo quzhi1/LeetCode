@@ -43,7 +43,7 @@ public class Voleon2 {
 
   }
 
-  private static void newBuy(final int id, final int amount, final double price) {
+  private static void newBuy(final int id, final int amount, final double price, final boolean isMarket) {
 //    System.out.println("Buy amount: " + amount + ", at " + price);
     if (sellQueue.isEmpty()) {
       buyQueue.add(new Order(id, amount, price));
@@ -52,13 +52,13 @@ public class Voleon2 {
       while (amountRemaining > 0 && !sellQueue.isEmpty() && sellQueue.peek().price <= price) {
         amountRemaining = checkQueue(sellQueue, amountRemaining, id);
       }
-      if (amountRemaining > 0) {
+      if (amountRemaining > 0 && !isMarket) {
         buyQueue.add(new Order(id, amountRemaining, price));
       }
     }
   }
 
-  private static void newSell(final int id, final int amount, final double price) {
+  private static void newSell(final int id, final int amount, final double price, final boolean isMarket) {
 //    System.out.println("Sell amount: " + amount + ", at " + price);
     if (buyQueue.isEmpty()) {
       sellQueue.add(new Order(id, amount, price));
@@ -67,7 +67,7 @@ public class Voleon2 {
       while (amountRemaining > 0 && !buyQueue.isEmpty() && buyQueue.peek().price >= price) {
         amountRemaining = checkQueue(buyQueue, amountRemaining, id);
       }
-      if (amountRemaining > 0) {
+      if (amountRemaining > 0 && !isMarket) {
         sellQueue.add(new Order(id, amountRemaining, price));
       }
     }
@@ -97,15 +97,30 @@ public class Voleon2 {
         System.exit(0);
       }
       String[] lineParsed = line.split(" ");
-      switch (lineParsed[1]) {
-        case "buy":
-          newBuy(nextId++, Integer.parseInt(lineParsed[2]), Double.parseDouble(lineParsed[3]));
+      switch (lineParsed[0]) {
+        case "limit":
+          switch (lineParsed[1]) {
+            case "buy":
+              newBuy(nextId++, Integer.parseInt(lineParsed[2]), Double.parseDouble(lineParsed[3]), false);
+              break;
+            case "sell":
+              newSell(nextId++, Integer.parseInt(lineParsed[2]), Double.parseDouble(lineParsed[3]), false);
+              break;
+            default:
+              throw new UnsupportedOperationException("Operation " + lineParsed[1] + " not supported");
+          }
           break;
-        case "sell":
-          newSell(nextId++, Integer.parseInt(lineParsed[2]), Double.parseDouble(lineParsed[3]));
-          break;
-        default:
-          throw new UnsupportedOperationException("Operation " + lineParsed[1] + " not supported");
+        case "market":
+          switch (lineParsed[1]) {
+            case "buy":
+              newBuy(nextId++, Integer.parseInt(lineParsed[2]), Integer.MAX_VALUE, true);
+              break;
+            case "sell":
+              newSell(nextId++, Integer.parseInt(lineParsed[2]), 0, true);
+              break;
+            default:
+              throw new UnsupportedOperationException("Operation " + lineParsed[1] + " not supported");
+          }
       }
     }
   }
