@@ -1,0 +1,5 @@
+limit buy 10 99.00
+limit buy 10 100.00
+stop sell 10 99.00
+stop sell 10 100.00
+market sell 5 0.00
